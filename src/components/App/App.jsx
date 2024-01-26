@@ -1,17 +1,17 @@
 import Layout from 'components/Layout/Layout';
+import PrivateRoute from 'components/PrivateRoute';
+import PublicRoute from 'components/PublicRoute';
 import Contacts from 'pages/Contacts';
 import Home from 'pages/Home';
 import LogIn from 'pages/LogIn';
 import SignUp from 'pages/SignUp';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 import { currentThunk } from 'store/auth/operations';
-import { isLoggedInSelector } from 'store/auth/selectors';
 
 const App = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(isLoggedInSelector);
 
   useEffect(() => {
     dispatch(currentThunk());
@@ -20,13 +20,40 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
+        <Route
+          index
+          element={
+            <PublicRoute>
+              <Home />
+            </PublicRoute>
+          }
+        />
+
         <Route
           path="contacts"
-          element={isLoggedIn ? <Contacts /> : <Navigate to="/login" />}
+          element={
+            <PrivateRoute>
+              <Contacts />
+            </PrivateRoute>
+          }
         />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="login" element={<LogIn />} />
+
+        <Route
+          path="signup"
+          element={
+            <PublicRoute>
+              <SignUp />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <PublicRoute>
+              <LogIn />
+            </PublicRoute>
+          }
+        />
       </Route>
     </Routes>
   );
