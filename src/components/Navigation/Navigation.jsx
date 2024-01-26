@@ -1,39 +1,28 @@
 import React from 'react';
-import { Hiname, Navbox, Navwrap } from './Navigation.styled';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { userSelector } from 'store/auth/selectors';
-import { logout } from 'store/auth/authSlice';
-import { logoutThunk } from 'store/auth/operations';
+import { Navbox, Navwrap, StyledNavLink } from './Navigation.styled';
+
+import { useSelector } from 'react-redux';
+import { isLoggedInSelector } from 'store/auth/selectors';
+
+import UserMenu from 'components/UserMenu/UserMenu';
 
 const Navigation = () => {
-  const user = useSelector(userSelector);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleLogOut = () => {
-    navigate('/login');
-    dispatch(logout());
-    logoutThunk();
-  };
+  const isLoggedIn = useSelector(isLoggedInSelector);
 
   return (
     <Navbox>
-      <NavLink to="/">Home</NavLink>
-      {user ? (
-        <NavLink to="/contacts">Contacts</NavLink>
+      <StyledNavLink to="/">Home</StyledNavLink>
+
+      {isLoggedIn && <StyledNavLink to="/contacts">Contacts</StyledNavLink>}
+
+      {isLoggedIn ? (
+        <UserMenu />
       ) : (
-        <NavLink to="/contacts">Contacts</NavLink>
+        <Navwrap>
+          <StyledNavLink to="/signup">Sign Up</StyledNavLink>
+          <StyledNavLink to="/login">Log In</StyledNavLink>
+        </Navwrap>
       )}
-      <Navwrap>
-        {!user && <NavLink to="/signup">Sign Up</NavLink>}
-        {user && <Hiname>Hi, {user.name}</Hiname>}
-        {user ? (
-          <button onClick={handleLogOut}>Log Out</button>
-        ) : (
-          <NavLink to="/login">Log In</NavLink>
-        )}
-      </Navwrap>
     </Navbox>
   );
 };

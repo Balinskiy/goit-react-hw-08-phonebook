@@ -1,16 +1,25 @@
 import React from 'react';
 import { UserMenuBox, UserMenuButton } from './UserMenu.styled';
-import { Heading } from 'components/Heading/Heading.styled';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector } from 'store/auth/selectors';
+import { logoutThunk } from 'store/auth/operations';
 
 const UserMenu = () => {
+  const user = useSelector(userSelector);
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logoutThunk());
+  };
+
   return (
     <>
       <UserMenuBox>
-        <Heading as="h1" styletype="primary">
-          Log Out
-        </Heading>
-        <p>mango@mail.com</p>
-        <UserMenuButton type="submit">Logout</UserMenuButton>
+        <p>{user.name}</p>
+        <UserMenuButton type="submit" onClick={handleLogOut}>
+          Logout
+        </UserMenuButton>
       </UserMenuBox>
     </>
   );

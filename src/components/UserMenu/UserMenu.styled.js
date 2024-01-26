@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export const UserMenuBox = styled.div`
-  width: 70%;
-  padding: 20px 0;
+  display: flex;
   text-align: center;
+  align-items: center;
 `;
 
 export const UserMenuButton = styled.button`
-  width: 200px;
+  width: 130px;
   height: 30px;
   font-size: 16px;
   margin-right: 10px;

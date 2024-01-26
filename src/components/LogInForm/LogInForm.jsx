@@ -33,6 +33,8 @@ const LogInForm = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
     dispatch(loginThunk({ email, password }));
+       setEmail('');
+       setPassword('');
   };
 
   return (
@@ -58,7 +60,7 @@ const LogInForm = () => {
           required
           placeholder="Your password*"
         />
-        <LogInButton type="submit">Sign Up</LogInButton>
+        <LogInButton type="submit">Log In</LogInButton>
       </LogInFormStyled>
     </LogInBox>
   );
