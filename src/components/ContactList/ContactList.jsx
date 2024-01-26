@@ -5,8 +5,8 @@ import {
   DeleteButton,
 } from 'components/ContactList/ContactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { filtredContacts } from 'store/selectors';
-import { deleteContacts } from 'store/operations';
+import { filtredContacts } from 'store/contacts/selectors';
+import { deleteContacts } from 'store/contacts/operations';
 
 const ContactListComponent = () => {
   const dispatch = useDispatch();
