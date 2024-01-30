@@ -23,7 +23,7 @@ const App = () => {
         <Route
           index
           element={
-            <PublicRoute>
+            <PublicRoute restricted>
               <Home />
             </PublicRoute>
           }
@@ -41,7 +41,7 @@ const App = () => {
         <Route
           path="signup"
           element={
-            <PublicRoute>
+            <PublicRoute restricted>
               <SignUp />
             </PublicRoute>
           }
@@ -49,7 +49,7 @@ const App = () => {
         <Route
           path="login"
           element={
-            <PublicRoute>
+            <PublicRoute restricted>
               <LogIn />
             </PublicRoute>
           }
